@@ -14,12 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('properties', function (Blueprint $table) {
-            $table->id();
-            $table->string('quantity')->nullable();
-            $table->string('size')->nullable();
-            $table->string('color')->nullable();
-            $table->string('brand')->nullable();
-            $table->string('type')->nullable();
+            $table->id();           
             $table->timestamps();
         });
     }
