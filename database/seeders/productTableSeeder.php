@@ -24,7 +24,7 @@ class productTableSeeder extends Seeder
                 'category_id'=>$count++,
                 'entry'=>$products,
                 'p_price'=>80,
-                'p_price'=>100,
+                's_price'=>100,
                 'property_id'=>$count++
             ]);
         }

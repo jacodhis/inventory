@@ -22,5 +22,11 @@ class adminTableSeeder extends Seeder
             'password'=>Hash::make('password'),
             'role_id'=>1,
         ]);
+        \App\Models\User::create([
+            'name'=>'seller',
+            'email'=>'user@gmail.com',
+            'password'=>Hash::make('password'),
+            'role_id'=>2,
+        ]);
     }
 }

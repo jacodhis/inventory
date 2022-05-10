@@ -2,25 +2,18 @@
 
 @section('content')
 
-       
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{-- <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">DataTable with Products</h3>
-                            </div>
 
-                        </div> --}}
-                        <!-- /.card -->
 
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title"> All Products: {{count($products)}}</h3>
                             </div>
-                            <!-- /.card-header -->
+                           
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -74,15 +67,15 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
+                       
                         </div>
-                        <!-- /.card -->
+                       
                     </div>
-                    <!-- /.col -->
+                
                 </div>
-                <!-- /.row -->
+               
             </div>
-            <!-- /.container-fluid -->
+           
         </section>
         <!-- /.content -->
     <!-- /.content-wrapper -->

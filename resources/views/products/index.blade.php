@@ -2,18 +2,37 @@
 
 @section('content')
 
+{{-- @if(session('success'))
+
+                            <div class="alert alert-success">
+                                {{session('success')}}
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{session('error')}}
+                            </div>
+                        @endif --}}
+
        
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{-- <div class="card">
+                        <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with Products</h3>
+                                @if(session('cart'))
+                                
+                                <h3 class="card-title">Cart  : {{count(session('cart'))}}</h3>
+                               @else
+                               <p>0</p>
+                               @endif
+                               
                             </div>
 
-                        </div> --}}
+                        </div>
                         <!-- /.card -->
 
                         <div class="card">
@@ -36,6 +55,7 @@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
+                                   
                                     <tbody>
                                       @forelse ($products as $Product )
                                       <tr>
@@ -45,7 +65,8 @@
                                             <td>{{$Product->p_price}}</td>
                                             <td>{{$Product->s_price}}</td>
                                             <td>
-                                              <form action="{{route('product.soldupdated',[$Product->id])}}" method="post">
+                                              {{-- <form action="{{route('product.soldupdated',[$Product->id])}}" method="post"> --}}
+                                                <form action="{{route('cart.addtocart',[$Product->id])}}" method="post">
                                                 @csrf
                                                 <input type="number" min="1" name="qt">
                                                <button type="submit" class="btn btn-primary">submit</button>

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReceiptController;
 use  App\Http\Controllers\CustomerController;
+use  App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,12 +49,22 @@ Route::controller(ProductController::class)->middleware('auth')->group(function 
     Route::get('product/edit/{id}','edit')->name('product.edit');
     Route::get('products/create','create')->name('product.create');
     Route::post('products/store','store')->name('product.store');
-    Route::post('product/update-sold/{id}','updatesold')->name('product.soldupdated');
+    // Route::post('product/update-sold/{id}','updatesold')->name('product.soldupdated');
     Route::post('product/update-add/{id}','updateadd')->name('product.addupdated');
     Route::post('product/update-product/{id}','update')->name('product.update');
 
   
 });
+
+
+Route::controller(CartController::class)->middleware('auth')->group(function () {
+
+  Route::get('/cart', 'my_cart_items')->name('cart.items');
+  Route::post('/cart-remove/{id}','cart_remove')->name('cart-remove');
+  Route::post('add-to-cart/{id}','add_to_cart')->name('cart.addtocart');
+ 
+   
+});   
 
 Route::controller(CustomerController::class)->middleware('auth')->group(function () {
    
