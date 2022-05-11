@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('product_id')->nullable();
             $table->string('quantity')->nullable();
-            $table->string('customer_name')->nullable();
-            $table->string('phone')->nullable();
+            $table->foreignId('customer_id')->index();
             $table->timestamps();
         });
     }

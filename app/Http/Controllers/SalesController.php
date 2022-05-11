@@ -6,6 +6,7 @@ use session;
 use App\Models\Sale;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class SalesController extends Controller
 {
@@ -19,17 +20,25 @@ class SalesController extends Controller
           'cutomer_name'=>'required',
           'phone'=>'required'
         ]);
+       
 
-        //
-        // $products  = session()->get('cart');
+       $customer =  Customer::where('phone','LIKE','%' . $request->phone . '%')->first();
+        if(!$customer){
+            $customer = Customer::create([
+                'name'=>$request->cutomer_name,
+                'phone' => $request->phone
+            ]);
+        
+        }
+     
+    
         $products = session('cart');
         $datas = [];
        foreach ($products as $product) {
              $sale = Sale::create([
                 'product_id'=> $product['product_id'],
                 'quantity'=>$product['quantity'],
-                'customer_name'=>$request->cutomer_name,
-                 'phone'=>$request->phone,
+                'customer_id'=>$customer->id,
             ]);
             array_push($datas,$sale);
         }
@@ -42,8 +51,10 @@ class SalesController extends Controller
                $product->update();
             }
             dd($datas);
+            // return view('receipt',compact(''));
+            // 
           
-            return redirect()->route('receipt',[$sale->id]);
+            // return redirect()->route('receipt',[$cutomer->id]);
         }else{
             dd('empty');
         }
