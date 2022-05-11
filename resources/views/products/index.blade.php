@@ -27,7 +27,7 @@
                                 
                                 <h3 class="card-title">Cart  : {{count(session('cart'))}}</h3>
                                @else
-                               <p>0</p>
+                               <p>Cart [0]</p>
                                @endif
                                
                             </div>

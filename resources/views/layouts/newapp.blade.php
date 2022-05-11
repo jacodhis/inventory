@@ -296,29 +296,18 @@
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
-                Customers
+                Sales
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('customers.index')}}" class="nav-link">
+                <a href="{{route('sales')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>View Customers</p>
+                  <p>View sales</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('customer.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Customer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Read</p>
-                </a>
-              </li>
+           
             </ul>
           </li>
           <li class="nav-item">

@@ -13,7 +13,12 @@ class CartController extends Controller
         return view('customers.cart');
     }
     public function add_to_cart(Request $request,$id){
+        
         $product = product::findorFail($id);
+        if($product->entry < $request->qt){
+            return back()->with('error','sorry.. quantity entered should not exceed quantity available');
+        }
+        // if($product)
         $cart  = session()->get('cart');
        
          $cart[$id] = [
@@ -31,15 +36,15 @@ class CartController extends Controller
 
     //remove from cart 
     public function cart_remove(Request $request,$productId){
-        $productId = product::findorFail($productId);
+        $product = product::findorFail($productId);
         $products = session('cart');
     
      foreach($products as $key =>$value){
       
-         if($value['name'] == $art->name){
+         if($value['product_code'] == $product->sku_no){
              unset($products[$key]);
              session()->put('cart',$products);
-               return redirect()->route('mycart')->with('success','art deleted from cart');
+               return back()->with('success','product  deleted from cart');
          }
      }
        }

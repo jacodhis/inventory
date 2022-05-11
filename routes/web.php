@@ -6,6 +6,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReceiptController;
 use  App\Http\Controllers\CustomerController;
 use  App\Http\Controllers\CartController;
+use  App\Http\Controllers\SalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,19 +66,14 @@ Route::controller(CartController::class)->middleware('auth')->group(function () 
  
    
 });   
-
-Route::controller(CustomerController::class)->middleware('auth')->group(function () {
-   
-    Route::get('customers','index')->name('customers.index'); //receipt Generation
-    Route::get('customer-create','create')->name('customer.create');
-    Route::Post('customer-store','store')->name('customer.store');
-     
-  });   
+Route::controller(SalesController::class)->middleware('auth')->group(function(){
+  Route::get('/sales', 'all_sales')->name('sales');
+  Route::post('/sales', 'store')->name('sales.store');
+});
+ 
 Route::controller(ReceiptController::class)->middleware('auth')->group(function () {
   //receipt Generation
-  Route::get('receipt-create','create')->name('product.receipt');
-//   Route::get('receipt-store','store')->name('product.store');
-   
+  Route::get('receipt-create/{saleId}','create')->name('receipt');
 });   
 
 Auth::routes();
