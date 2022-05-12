@@ -72,8 +72,8 @@ Route::controller(SalesController::class)->middleware('auth')->group(function(){
 });
  
 Route::controller(ReceiptController::class)->middleware('auth')->group(function () {
-  //receipt Generation
-  Route::get('receipt-create/{saleId}','create')->name('receipt');
+
+  Route::get('receipt-index','create')->name('receipt.index');
 });   
 
 Auth::routes();

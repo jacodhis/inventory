@@ -18,7 +18,6 @@ class CartController extends Controller
         if($product->entry < $request->qt){
             return back()->with('error','sorry.. quantity entered should not exceed quantity available');
         }
-        // if($product)
         $cart  = session()->get('cart');
        
          $cart[$id] = [

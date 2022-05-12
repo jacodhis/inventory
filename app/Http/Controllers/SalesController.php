@@ -33,6 +33,9 @@ class SalesController extends Controller
      
     
         $products = session('cart');
+        // if(!$products){
+        //     dd('empty');
+        // }
         $datas = [];
        foreach ($products as $product) {
              $sale = Sale::create([
@@ -42,7 +45,7 @@ class SalesController extends Controller
             ]);
             array_push($datas,$sale);
         }
-        $request->session()->forget('cart');  
+        // $request->session()->forget('cart');  
         if(!empty($datas)){
             foreach ($datas as $data) {
                $product = Product::find($data['product_id']);
@@ -50,11 +53,11 @@ class SalesController extends Controller
                $product->entry = $rem_quantity;
                $product->update();
             }
-            dd($datas);
-            // return view('receipt',compact(''));
-            // 
+            if(!empty($datas)){
+                return view('customers.receipt',compact('datas','customer'));
+            }
           
-            // return redirect()->route('receipt',[$cutomer->id]);
+            
         }else{
             dd('empty');
         }
