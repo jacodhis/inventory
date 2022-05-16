@@ -164,22 +164,22 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    {{-- <a href="index3.html" class="brand-link">
       <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+    </a> --}}
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
-      </div>
+      </div> --}}
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
@@ -228,6 +228,17 @@
             </ul> --}}
           </li>
 
+         @if(auth()->user()->role_id ==1)
+         <li class="nav-item">
+          <a href="{{route('categories')}}" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Category
+              {{-- <i class="fas fa-angle-left right"></i> --}}
+            </p>
+          </a>
+        </li>
+        @endif
      
         
           <li class="nav-item">
@@ -245,27 +256,29 @@
                   <p>All Products</p>
                 </a>
               </li>
+              @if (auth()->user()->role_id == 2 || auth()->user()->id == 1)
               <li class="nav-item">
                 <a href="{{route('products.added')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Recently Added</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('products.sold')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Recently Sold</p>
-                </a>
-              </li>
+              @endif
+
+              @if(auth()->user()->role_id == 1)
               <li class="nav-item">
                 <a href="{{route('products.deleted')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Recently Deleted</p>
                 </a>
               </li>
+              @endif
             
             </ul>
           </li>
+         
+
+          @if (auth()->user()->role_id == 1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -274,6 +287,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+          @endif
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('users')}}" class="nav-link">
@@ -292,24 +306,28 @@
           </li>
         
       
+       @if (auth()->user()->role_id == 2 || auth()->user()->id == 1)
+       <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="nav-icon far fa-envelope"></i>
+          <p>
+            Sales
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Sales
-                <i class="fas fa-angle-left right"></i>
-              </p>
+            <a href="{{route('sales')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>View sales</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('sales')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>View sales</p>
-                </a>
-              </li>
-           
-            </ul>
           </li>
+       
+        </ul>
+      </li>
+       @else
+         
+       @endif
           <li class="nav-item">
             <a href="{{route('cart.items')}}" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
@@ -540,7 +558,7 @@
 <script src="{{asset('/temp/plugins/chart.js/Chart.min.js')}}"></script>
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('temp/dist/js/demo.js')}}"></script>
+{{-- <script src="{{asset('temp/dist/js/demo.js')}}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('temp/dist/js/pages/dashboard2.js')}}"></script>
 

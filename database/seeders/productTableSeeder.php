@@ -15,7 +15,7 @@ class productTableSeeder extends Seeder
     public function run()
     {
         //
-        $products = "10";
+        $products = 5;
         $count = 1;
         for($i=0;$i<$products;$i++){
             \App\Models\Product::create([

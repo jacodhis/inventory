@@ -21,7 +21,7 @@ class UsersController extends Controller
         return view('users.show',compact('user','roles'));
        }
     public function create(){
-        $roles = Role::get();
+        $roles = Role::select(['id','title',])->get();
         return view('users.create',compact('roles'));
     }
     public function store(Request $request){

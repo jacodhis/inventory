@@ -53,7 +53,7 @@
                     <th>PART NUMBER</th>
                     <th>QTY</th>
                     <th>UNIT PRICE @</th>
-                    {{-- <th>VAT</th> --}}
+                    <th>VAT</th>
                     <th>TOTAL</th>
                 </tr>
                 </thead>
@@ -69,8 +69,8 @@
                     <td>{{$data->product->title ?? ""}}</td>
                     <td>{{$data->product->sku_no ?? ""}}</td>
                     <td>{{$data->quantity}}</td>
-                    <td>{{$data->product->s_price + $data->product->s_vat}}</td>
-                    {{-- <td>{{$data->product->s_vat ?? "0"}}</td> --}}
+                    <td>{{$data->product->s_price}}</td>
+                    <td>{{$data->product->s_vat ?? "0"}}</td>
                     <td>{{$data->quantity * $data->product->s_price}}</td>
                 </tr>
                 @endforeach
@@ -84,7 +84,7 @@
         
             <div class="col-6 " >
             <p> TAX RATE : 16.00%</p>
-               
+                <p>TOTAL TAX :  {{$total_vat}}</p>
             
                 <p>GRAND TOTAL :{{$total}}</p>
             </div>
@@ -95,6 +95,7 @@
 
     </div>
 
+<a href="{{route('generate-pdf',[$customer->id])}}"> Generate PDF </a>
 <button id="print" onclick="printx()">print Receipt</button>
 <script>
 function printx(){

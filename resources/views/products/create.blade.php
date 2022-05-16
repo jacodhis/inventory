@@ -22,6 +22,16 @@
             @csrf
           <div class="card-body">
             <div class="form-group">
+              <label for="exampleInputPassword1">Category</label>
+             <select name="category_id" id="" class="form-control">
+               <option value="" disabled>select Product Category</option>
+               @foreach ($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+               @endforeach
+              
+             </select>
+          </div>
+            <div class="form-group">
               <label for="exampleInputEmail1">Description</label>
               <input type="text"  name="title"  class="form-control" id="exampleInputEmail1" placeholder="Enter Description">
             </div>

@@ -2,43 +2,26 @@
 
 @section('content')
 
-{{-- @if(session('success'))
-
-                            <div class="alert alert-success">
-                                {{session('success')}}
-                            </div>
-                        @endif
-
-                        @if(session('error'))
-                            <div class="alert alert-danger">
-                                {{session('error')}}
-                            </div>
-                        @endif --}}
-
-       
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                @if(session('cart'))
-                                
-                                <h3 class="card-title">Cart  : {{count(session('cart'))}}</h3>
-                               @else
-                               <p>Cart [0]</p>
-                               @endif
-                               
-                            </div>
-
-                        </div>
-                        <!-- /.card -->
+                        
 
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title"> All Products: {{count($products)}}</h3>
+                                @if (auth()->user()->role_id == 2)
                                 <h3  style="text-align: right;"><a  class="btn btn-primary" href="{{route('product.create')}}">Add Product</a></h3>
+                                @else
+                                    @if(session('cart'))
+                                    <h3  style="text-align: right;"><a  class="btn btn-primary" href="{{route('cart.items')}}">Cart  : {{count(session('cart'))}}</a></h3>
+                                    @else
+                                    <h3  style="text-align: right;"><a  class="btn btn-primary" href="{{route('cart.items')}}">Cart [0]</a></h3>
+                                    
+                                 
+                                    @endif
+                                @endif
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -48,11 +31,18 @@
                                             <th>Code</th>
                                             <th>description</th>
                                             <th>Entry</th>
-                                            <th>PP</th>
+                                            {{-- <th>PP</th> --}}
                                             <th>SP</th>
+                                            @if (auth()->user()->role_id == 3) 
                                             <th>Qt Sell</th>
+                                            @endif
+
+                                            @if (auth()->user()->role_id == 2)
                                             <th>Qt Add</th>
+                                            @endif
+                                            @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 1)
                                             <th>Actions</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                    
@@ -62,8 +52,9 @@
                                             <td>{{$Product->sku_no}}</td>
                                             <td>{{$Product->title}}</td>
                                             <td>{{$Product->entry}}</td>
-                                            <td>{{$Product->p_price}}</td>
-                                            <td>{{$Product->s_price}}</td>
+                                            {{-- <td>{{$Product->p_price}}</td> --}}
+                                            <td>{{$Product->s_price + $Product->s_vat}}</td>
+                                            @if (auth()->user()->role_id == 3) 
                                             <td>
                                               {{-- <form action="{{route('product.soldupdated',[$Product->id])}}" method="post"> --}}
                                                 <form action="{{route('cart.addtocart',[$Product->id])}}" method="post">
@@ -72,6 +63,9 @@
                                                <button type="submit" class="btn btn-primary">submit</button>
                                             </form>
                                             </td>
+                                            @endif
+
+                                            @if (auth()->user()->role_id == 2)
                                             <td>
                                                 <form action="{{route('product.addupdated',[$Product->id])}}" method="post">
                                                   @csrf
@@ -79,13 +73,23 @@
                                                  <button type="submit" class="btn btn-primary">submit</button>
                                               </form>
                                               </td>
+                                            @endif
+
+                                            @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 1)
                                             <td>
-                                                <a href="{{route('product.show',[$Product->id])}}" class="btn btn-primary">View</a>
-                                                @if(auth()->user()->role_id == '1')
+                                                @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+                                                 <a href="{{route('product.show',[$Product->id])}}" class="btn btn-primary">View</a>
+                                                @endif
+
+                                                @if(auth()->user()->role_id == 1)
                                                 <a href="{{route('product.delete',[$Product->id])}}" class="btn btn-danger">Delete</a>
                                                 @endif
+
+                                                @if(auth()->user()->role_id == 2)
                                                 <a href="{{route('product.edit',[$Product->id])}}" class="btn btn-warning">Edit</a>
+                                                @endif
                                             </td>
+                                            @endif
                                             
                                           
                                         </tr>
@@ -101,11 +105,17 @@
                                             <th>Code</th>
                                             <th>description</th>
                                             <th>Entry</th>
-                                            <th>PP</th>
+                                            {{-- <th>PP</th> --}}
                                             <th>SP</th>
+                                            @if (auth()->user()->role_id == 3) 
                                             <th>Qt Sell</th>
+                                            @endif
+                                            @if (auth()->user()->role_id == 2)
                                             <th>Qt Add</th>
+                                            @endif
+                                            @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 1)
                                             <th>Actions</th>
+                                            @endif
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -125,9 +135,9 @@
 @endsection
 
 @section('title')
-    All Products
+    welcome {{auth()->user()->Role->title}}
 @endsection
 
 @section('subtitle')
-    Products
+   Welcome {{auth()->user()->Role->title}}
 @endsection

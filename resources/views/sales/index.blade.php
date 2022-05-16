@@ -25,31 +25,26 @@
                                             <th>Customer Name</th>
                                             <th>Customer Phone</th>
                                             <th> product total</th>
-                                            <th>grand total</th>
+                                            <th>CF</th>
                                             {{-- <th>Actions</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php    $total = 0;?> 
                                       @forelse ($sales as $sale )
-                                      <?php $total = $total+ ($sale->quantity * $sale->Product->s_price) ; ?>
+                                      <?php  $total = $total + ($sale->Product->s_price + $sale->Product->s_vat) * $sale->quantity?>
+                                   
+                                     
                                       <tr>
-                                        <td>{{$sale->Product->sku_no}}</td>
+                                           <td>{{$sale->Product->sku_no}}</td>
                                             <td>{{$sale->Product->title}}</td>
                                            
                                             <td>{{$sale->quantity}}</td>
-
-                                            <td>
-                                                {{$sale->Product->s_price}}
-                                            </td>
-                                            <td>
-                                                {{$sale->customer_name}}
-                                            </td>
-                                            <td>
-                                                {{$sale->phone}}
-                                            </td>
-                                            <td>{{$sale->Product->s_price * $sale->quantity}}</td>
-                                            <td>{{$total}}</td>
+                                            <td>{{$sale->Product->s_price + $sale->Product->s_vat}}</td>
+                                            <td>{{$sale->Customer->name}}</td>
+                                            <td>{{$sale->Customer->phone ?? ""}}</td>                                                                                            
+                                            <td>{{($sale->Product->s_price + $sale->Product->s_vat) * $sale->quantity}}</td>
+                                           <td>{{$total}}</td>
                                         
                                             {{-- <td>
                                                 <a href="{{route('product.show',[$Product->id])}}" class="btn btn-primary">View</a>
@@ -77,8 +72,10 @@
                                             <th>product price</th>
                                             <th>Customer Name</th>
                                             <th>Customer Phone</th>
-                                            <th> product total</th>
-                                            <th>grand total</th>
+                                            
+                                            <th> {{$total}}</th>
+                                            <th>CF</th>
+                                       
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -102,5 +99,5 @@
 @endsection
 
 @section('subtitle')
-    Products Sold
+   Welcome {{auth()->user()->Role->title}}
 @endsection

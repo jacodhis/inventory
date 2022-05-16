@@ -16,13 +16,16 @@ class rolesTableSeeder extends Seeder
     public function run()
     {
         //
-        $users = ['admin','seller'];
+        $users = ['super_admin','admin','retailer'];
        
             \App\Models\Role::create([
                 'title'=>$users[0]
             ]);
             \App\Models\Role::create([
                 'title'=>$users[1]
+            ]);
+            \App\Models\Role::create([
+                'title'=>$users[2]
             ]);
         
 

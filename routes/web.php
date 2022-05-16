@@ -7,6 +7,9 @@ use App\Http\Controllers\ReceiptController;
 use  App\Http\Controllers\CustomerController;
 use  App\Http\Controllers\CartController;
 use  App\Http\Controllers\SalesController;
+use App\Http\Controllers\GeneratePdf;
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,21 +41,30 @@ Route::controller(UsersController::class)->middleware('auth')->group(function(){
  
 });
 
+Route::controller(CategoryController::class)->middleware(['auth','superadmin'])->group(function(){
+  Route::get('/categories','index')->name('categories');
+  Route::get('/category/create','create')->name('category.create');
+  Route::get('/category/edit/{id}','edit')->name('category.edit');
+  Route::get('/category/{id}','show')->name('category.show');
+  Route::get('/category/delete/{id}','delete')->name('category.delete');
+  Route::Post('/category/update/{id}','update')->name('category.update');
+  Route::Post('/category/store','store')->name('category.store');
+ 
+});
+
 
 Route::controller(ProductController::class)->middleware('auth')->group(function () {
     Route::get('products/all-products','index')->name('all.products');
-    Route::get('products/added','added')->name('products.added');
-    Route::get('products/sold','sold')->name('products.sold');
-    Route::get('product/delete/{id}','delete')->name('product.delete');
-    Route::get('product/insert/{id}','insert')->name('product.insert');
-    Route::get('products/all-products/removed','deletedProducts')->name('products.deleted');
-    Route::get('product/{id}','show')->name('product.show');
-    Route::get('product/edit/{id}','edit')->name('product.edit');
-    Route::get('products/create','create')->name('product.create');
-    Route::post('products/store','store')->name('product.store');
-    // Route::post('product/update-sold/{id}','updatesold')->name('product.soldupdated');
-    Route::post('product/update-add/{id}','updateadd')->name('product.addupdated');
-    Route::post('product/update-product/{id}','update')->name('product.update');
+    Route::get('products/added','added')->name('products.added')->middleware('adminSuperAdmin');
+    Route::get('product/delete/{id}','delete')->name('product.delete')->middleware('superadmin');
+    Route::get('product/insert/{id}','insert')->name('product.insert')->middleware('superadmin');
+    Route::get('products/all-products/removed','deletedProducts')->name('products.deleted')->middleware('superadmin');
+    Route::get('product/{id}','show')->name('product.show')->middleware('adminSuperAdmin');
+    Route::get('product/edit/{id}','edit')->name('product.edit')->middleware('admin');
+    Route::get('products/create','create')->name('product.create')->middleware('admin');
+    Route::post('products/store','store')->name('product.store')->middleware('admin');
+    Route::post('product/update-add/{id}','updateadd')->name('product.addupdated')->middleware('admin');
+    Route::post('product/update-product/{id}','update')->name('product.update')->middleware('admin');
 
   
 });
@@ -67,14 +79,9 @@ Route::controller(CartController::class)->middleware('auth')->group(function () 
    
 });   
 Route::controller(SalesController::class)->middleware('auth')->group(function(){
-  Route::get('/sales', 'all_sales')->name('sales');
-  Route::post('/sales', 'store')->name('sales.store');
+  Route::get('/sales', 'all_sales')->name('sales')->middleware('adminSuperAdmin');
+  Route::post('/sales', 'store')->name('sales.store')->middleware('retailer');;
 });
- 
-Route::controller(ReceiptController::class)->middleware('auth')->group(function () {
-
-  Route::get('receipt-index','create')->name('receipt.index');
-});   
 
 Auth::routes();
 

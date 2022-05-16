@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use session;
 use App\Models\Sale;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Customer;
+// use Barryvdh\DomPDF\PDF;
+use Illuminate\Http\Request;
+use PDF;
 
 class SalesController extends Controller
 {
@@ -20,9 +22,11 @@ class SalesController extends Controller
           'cutomer_name'=>'required',
           'phone'=>'required'
         ]);
-       
 
-       $customer =  Customer::where('phone','LIKE','%' . $request->phone . '%')->first();
+       $customer =  Customer::where('phone', $request->phone)->first();
+       if (!session()->has('cart')) {
+         return redirect()->route('all.products')->with('error','no products in the Cart');
+       }
         if(!$customer){
             $customer = Customer::create([
                 'name'=>$request->cutomer_name,
@@ -30,12 +34,8 @@ class SalesController extends Controller
             ]);
         
         }
-     
-    
+        
         $products = session('cart');
-        // if(!$products){
-        //     dd('empty');
-        // }
         $datas = [];
        foreach ($products as $product) {
              $sale = Sale::create([
@@ -45,7 +45,7 @@ class SalesController extends Controller
             ]);
             array_push($datas,$sale);
         }
-        // $request->session()->forget('cart');  
+        $request->session()->forget('cart');  
         if(!empty($datas)){
             foreach ($datas as $data) {
                $product = Product::find($data['product_id']);
@@ -53,7 +53,14 @@ class SalesController extends Controller
                $product->entry = $rem_quantity;
                $product->update();
             }
+            $details['datas'] = $datas;
+            $details['customer'] =$customer;
             if(!empty($datas)){
+                // $pdf = PDF::loadView('pdf.receipts', $details);
+                // dd($pdf);
+                // download PDF file with download method
+                // return $pdf->download('Nana-Uwezo-Receit.pdf');
+
                 return view('customers.receipt',compact('datas','customer'));
             }
           

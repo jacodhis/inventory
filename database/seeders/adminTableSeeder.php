@@ -20,13 +20,19 @@ class adminTableSeeder extends Seeder
             'name'=>'Roy',
             'email'=>'roy@gmail.com',
             'password'=>Hash::make('password'),
-            'role_id'=>1,
+            'role_id'=>1, //super admin
         ]);
         \App\Models\User::create([
-            'name'=>'seller',
-            'email'=>'user@gmail.com',
+            'name'=>'admin',
+            'email'=>'admin@gmail.com',
             'password'=>Hash::make('password'),
-            'role_id'=>2,
+            'role_id'=>2, //admin
+        ]);
+        \App\Models\User::create([
+            'name'=>'retailer',
+            'email'=>'retailer@gmail.com',
+            'password'=>Hash::make('password'),
+            'role_id'=>3, //retailer
         ]);
     }
 }

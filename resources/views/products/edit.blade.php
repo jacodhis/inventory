@@ -30,6 +30,12 @@
             </div>
 
             <div class="form-group">
+              <label for="exampleInputPassword1">Quantity </label>
+              <input type="number" value="{{$product->entry ?? ""}}" name="entry"  min="1" class="form-control" id="exampleInputPassword1" placeholder="Enter Quantity ">
+          </div>
+
+
+            <div class="form-group">
               <label for="exampleInputPassword1">Purchase Price</label>
               <input type="number" value="{{$product->p_price ?? ""}}" name="purchase_price"  min="1" class="form-control" id="exampleInputPassword1" placeholder="Purchase Price">
           </div>

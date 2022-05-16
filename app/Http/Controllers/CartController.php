@@ -15,6 +15,9 @@ class CartController extends Controller
     public function add_to_cart(Request $request,$id){
         
         $product = product::findorFail($id);
+        if($product->entry == 0){
+            return back()->with('error','sorry.. no quantity to sell');
+        }
         if($product->entry < $request->qt){
             return back()->with('error','sorry.. quantity entered should not exceed quantity available');
         }
