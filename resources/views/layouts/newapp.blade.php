@@ -173,7 +173,7 @@
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            {{ auth()->user()->name }}
+           
             <!-- Sidebar -->
             <div class="sidebar">
 
