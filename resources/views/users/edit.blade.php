@@ -29,6 +29,10 @@
               <input type="text" value="{{$user->email ?? ""}}"name="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
             </div>
             <div class="form-group">
+              <label for="Phone">Phone</label>
+              <input type="text"name="phone" class="form-control" placeholder="email" value="{{$user->phone}}">
+            </div>
+            <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="text" value="{{$user->email ?? ""}}"name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>

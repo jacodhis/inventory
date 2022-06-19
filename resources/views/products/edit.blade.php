@@ -19,6 +19,7 @@
         <!-- form start -->
         <form action="{{route('product.update',[$product->id])}}" method="post">
             @csrf
+            <input type="hidden" name="category_id" value="{{$product->Category->id}}">
           <div class="card-body">
             <div class="form-group">
               <label for="exampleInputEmail1">Description</label>

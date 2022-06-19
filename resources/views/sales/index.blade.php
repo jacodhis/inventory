@@ -25,7 +25,7 @@
                                             <th>Customer Name</th>
                                             <th>Customer Phone</th>
                                             <th> product total</th>
-                                            <th>CF</th>
+                                            <th>Date</th>
                                             {{-- <th>Actions</th> --}}
                                         </tr>
                                     </thead>
@@ -44,17 +44,16 @@
                                             <td>{{$sale->Customer->name}}</td>
                                             <td>{{$sale->Customer->phone ?? ""}}</td>                                                                                            
                                             <td>{{($sale->Product->s_price + $sale->Product->s_vat) * $sale->quantity}}</td>
-                                           <td>{{$total}}</td>
+                                           <td>{{$sale->created_at->diffForHumans()}}</td>
                                         
-                                            {{-- <td>
-                                                <a href="{{route('product.show',[$Product->id])}}" class="btn btn-primary">View</a>
-                                                @if(auth()->user()->Role == 'admin')
-                                                <a href="{{route('product.delete',[$Product->id])}}" class="btn btn-danger">Delete</a>
-                                                @endif
-                                                <a href="{{route('product.edit',[$Product->id])}}" class="btn btn-warning">Edit</a>
-                                               
+                                            <td>
+                                                <a href="{{route('product.show',[$sale->id])}}" class="btn btn-primary">View</a>
+                                             
+                                                <a href="{{route('product.delete',[$sale->id])}}" class="btn btn-danger">Delete</a>
+                                            
+
                                             </td>
-                                             --}}
+                                            
                                           
                                         </tr>
                                           

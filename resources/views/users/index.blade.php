@@ -24,6 +24,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Phone</th>
                                             <th>Role</th>
                                            <th>Actions</th>
                                         </tr>
@@ -33,11 +34,12 @@
                                       <tr>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
+                                            <td>{{$user->phone}}</td>
                                             <td>{{$user->Role->title ?? ""}}</td>
                                            
                                             <td>
                                                 <a href="{{route('user.show',[$user->id])}}" class="btn btn-primary">View</a>
-                                                @if(auth()->user()->Role->title == 'admin')
+                                                @if(auth()->user()->Role->title == 'super_admin')
                                                 <a href="{{route('user.delete',[$user->id])}}" class="btn btn-danger">Delete</a>
                                                 <a href="{{route('user.edit',[$user->id])}}" class="btn btn-warning">Edit</a>
                                                 @endif
@@ -56,6 +58,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Phone</th>
                                             <th>Role</th>
                                             <th>Actions</th>
                                             

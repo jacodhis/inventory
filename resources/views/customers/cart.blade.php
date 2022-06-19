@@ -104,11 +104,13 @@
                                                     <div class="card-body">
                                                         <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Customer Name') }}</label>
                                                         <div class="col-md-6">
-                                                           <input id="name" type="text" class="form-control" name="cutomer_name" >
+                                                           <input id="name" type="text" class="form-control" name="name" >
                                                         </div>
-                                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Customer Phone') }}</label>
+                                                    <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Customer Phone') }}</label>
                                                     <div class="col-md-6">
-                                                        <input id="phone" type="number" class="form-control" name="phone" >
+                                                        <input id="phone" type="tel" class="form-control" name="phone">
+                                                        
+                                                        <small>Format: 073-456-7890</small>
                                                     </div>
                                                 </div>
                                             </div>

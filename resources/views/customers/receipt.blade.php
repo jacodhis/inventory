@@ -21,8 +21,9 @@
     </style>
 <div class="container">
     
-    <div class="col-8 mx-auto mt-3">        
-    <div class="">
+    <div class="col-8 mx-auto mt-3">   
+
+    
      <div class="col-10 mx-auto mt-5">
         <div class="row ">
             <div class="col-6">
@@ -33,8 +34,8 @@
                 <small>254716892409/0110927185</small></br></br>
 
                 <b>BILL TO</b></br>
-                Name:{{$customer->name}}</br>
-                Phone No.:{{$customer->phone}}
+                Name:{{$details['customer']->name}}</br>
+                Phone No.:{{$details['customer']->phone}}
             </div>
 
             <div class="col-6">
@@ -44,63 +45,74 @@
             </div>
         </div>
      </div>
+
      
        <div class="col-10 mx-auto">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>DESCRIPTION</th>
-                    <th>PART NUMBER</th>
-                    <th>QTY</th>
-                    <th>UNIT PRICE @</th>
-                    {{-- <th>VAT</th> --}}
-                    <th>TOTAL</th>
-                </tr>
+                    <tr>
+                        <th>DESCRIPTION</th>
+                        <th>PART NUMBER</th>
+                        <th>QTY</th>
+                        <th>UNIT PRICE @</th>
+                        {{-- <th>VAT</th> --}}
+                        <th>TOTAL</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                
-                <?php    $total = 0;?>
-                <?php    $total_vat = 0;?>
-                @foreach($datas as $data)
-                <tr>
-                <?php $total = $total+ ($data->quantity * $data->product->s_price) ; ?>
-                <?php $total_vat = $total_vat + $data->product->s_vat ; ?>
-                    <td>{{$data->product->title ?? ""}}</td>
-                    <td>{{$data->product->sku_no ?? ""}}</td>
-                    <td>{{$data->quantity}}</td>
-                    <td>{{$data->product->s_price + $data->product->s_vat}}</td>
-                    {{-- <td>{{$data->product->s_vat ?? "0"}}</td> --}}
-                    <td>{{$data->quantity * $data->product->s_price}}</td>
-                </tr>
-                @endforeach
-                
+                    <?php    $total = 0;?>
+                    <?php    $total_vat = 0;?>
+                    @foreach($details['sales'] as $data)
+                    <tr>
+                    <?php $total = $total+ ($data->quantity * $data->product->s_price) ; ?>
+                    <?php $total_vat = $total_vat + $data->product->s_vat ; ?>
+                        <td>{{$data->product->title ?? ""}}</td>
+                        <td>{{$data->product->sku_no ?? ""}}</td>
+                        <td>{{$data->quantity}}</td>
+                        <td>{{$data->product->s_price + $data->product->s_vat}}</td>
+                        {{-- <td>{{$data->product->s_vat ?? "0"}}</td> --}}
+                        <td>{{$data->quantity * $data->product->s_price}}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
-       </div>
-       <div class="col-md-10 mx-auto">
-        <div class="row d-flex flex-row">
-            <div class="col-6">Thank You For Your Business</div>
-        
-            <div class="col-6 " >
-            <p> TAX RATE : 16.00%</p>
-               
+
+           
+
+          <div class="row">
+            <div class="col-6">
+                Thank You For Your Business
+            </div>
             
+            <div class="col-6 " >
+                <p> TAX RATE : 16.00%</p> 
                 <p>GRAND TOTAL :{{$total}}</p>
             </div>
-        </div>
+          </div>
+
+          <div style="text-align: right">
+            <a id="print" onclick="printx()" class="btn btn-success btn-sm">print Receipt</a>
+            <a href="{{route('all.products')}}" id="close" class="btn btn-primary btn-sm">Close</a>
+          </div>
+
        </div>
 
+ 
     </div>
 
-    </div>
 
-<button id="print" onclick="printx()">print Receipt</button>
+  
+
 <script>
 function printx(){
+     document.getElementById('print').style.display = "none"
+     document.getElementById('close').style.display = "none"
+
     window.print()
-    var print = document.getElementById("#print")
-    print.style.display = 'none'
+    document.getElementById("print").style.display = "inline"
+    document.getElementById('close').style.display = "inline"
+   
 }
 </script>
 </body>

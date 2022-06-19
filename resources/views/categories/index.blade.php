@@ -29,6 +29,8 @@
                                         <tr>
                                             <th>NAME</th>
                                             <th>DESCRIPTION</th>
+                                            <th>Actions</th>
+                                           
                                           
                                         </tr>
                                     </thead>
@@ -38,6 +40,10 @@
                                       <tr>
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->description}}</td>
+                                            <td><a href="{{route('category.show',$category->id)}}" class="btn btn-primary">View</a>
+                                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-success">Edit</a>
+                                            <a href="{{route('category.delete',$category->id)}}" class="btn btn-danger">Delete</a>
+                                        </td>
                                         </tr>
                                           
                                       @empty
@@ -50,6 +56,8 @@
                                         <tr>
                                             <th>NAME</th>
                                             <th>DESCRIPTION</th>
+                                            <th>Actions</th>
+                                           
                                           
                                         </tr>
                                     </tfoot>

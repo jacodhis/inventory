@@ -10,17 +10,8 @@
      <div class="card-body">
          <p>EMAIL:{{$user->email}}</p>
          <p>ROLE: {{$user->Role->title}}</p>
-         {{-- <div class="form-group">
-            <label for="exampleInputPassword1">Role</label>
-            <select name="role_id" >
-                <option @disabled(true)>Update Role</option>
-                @foreach($roles as $role)
-                <option value="{{$role->id}}">{{$role->title}}</option>
-                @endforeach
-            </select>
-          
-          </div>
-        --}}
+        
+       
      </div>
  </div>
 </div>

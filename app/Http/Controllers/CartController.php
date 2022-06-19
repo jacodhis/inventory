@@ -12,9 +12,10 @@ class CartController extends Controller
     public function my_cart_items(){
         return view('customers.cart');
     }
-    public function add_to_cart(Request $request,$id){
-        
-        $product = product::findorFail($id);
+    public function add_to_cart(Request $request,Product $product){
+        if($request->qt == null){
+            return back()->with('error','sorry.. Enter Sell Quantity');
+        }
         if($product->entry == 0){
             return back()->with('error','sorry.. no quantity to sell');
         }
@@ -23,7 +24,7 @@ class CartController extends Controller
         }
         $cart  = session()->get('cart');
        
-         $cart[$id] = [
+         $cart[$product->id] = [
              'product_id'=>$product->id,
              'product_code' => $product->sku_no,
              'product_name'=>$product->title,
@@ -37,18 +38,15 @@ class CartController extends Controller
     }
 
     //remove from cart 
-    public function cart_remove(Request $request,$productId){
-        $product = product::findorFail($productId);
+    public function cart_remove(Request $request,Product $product){
         $products = session('cart');
-    
-     foreach($products as $key =>$value){
-      
-         if($value['product_code'] == $product->sku_no){
-             unset($products[$key]);
-             session()->put('cart',$products);
-               return back()->with('success','product  deleted from cart');
-         }
-     }
+        foreach($products as $key =>$value){
+            if($value['product_code'] == $product->sku_no){
+                unset($products[$key]);
+                session()->put('cart',$products);
+                return back()->with('success','product  deleted from cart');
+            }
+        }
        }
    
 }

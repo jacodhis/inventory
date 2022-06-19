@@ -21,16 +21,20 @@
             @csrf
           <div class="card-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Name</label>
-              <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
+              <label for="name">Name</label>
+              <input type="text" name="name" class="form-control" placeholder="Enter Name">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Email</label>
-              <input type="text"name="email" class="form-control" id="exampleInputPassword1" placeholder="email">
+              <label for="email">Email</label>
+              <input type="text"name="email" class="form-control" placeholder="email">
+            </div>
+            <div class="form-group">
+              <label for="Phone">Phone</label>
+              <input type="text"name="phone" class="form-control" placeholder="email">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="text" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Role</label>

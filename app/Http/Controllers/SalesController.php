@@ -2,74 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use session;
 use App\Models\Sale;
 use App\Models\Product;
 use App\Models\Customer;
-// use Barryvdh\DomPDF\PDF;
-use Illuminate\Http\Request;
-use PDF;
+
+
+use App\Http\Requests\CustomerRequest;
 
 class SalesController extends Controller
 {
     //
     public function all_sales(){
-        $sales = Sale::paginate(20);
+        $sales = Sale::orderByDesc('created_at')->paginate(4);
         return view('sales.index',compact('sales'));
     }
-    public function store(Request $request){
-        $request->validate([
-          'cutomer_name'=>'required',
-          'phone'=>'required'
-        ]);
-
+    public function store(CustomerRequest $request){
        $customer =  Customer::where('phone', $request->phone)->first();
-       if (!session()->has('cart')) {
+       if(!$customer) {
+         $customer =  Customer::create($request->validated());
+       }
+       $products = session('cart');
+       if (!$products) {
          return redirect()->route('all.products')->with('error','no products in the Cart');
        }
-        if(!$customer){
-            $customer = Customer::create([
-                'name'=>$request->cutomer_name,
-                'phone' => $request->phone
-            ]);
-        
-        }
-        
-        $products = session('cart');
-        $datas = [];
+    
+        $sales = [];
        foreach ($products as $product) {
              $sale = Sale::create([
                 'product_id'=> $product['product_id'],
                 'quantity'=>$product['quantity'],
                 'customer_id'=>$customer->id,
             ]);
-            array_push($datas,$sale);
-        }
-        $request->session()->forget('cart');  
-        if(!empty($datas)){
-            foreach ($datas as $data) {
-               $product = Product::find($data['product_id']);
-               $rem_quantity = $product->entry-$data['quantity'];
-               $product->entry = $rem_quantity;
-               $product->update();
-            }
-            $details['datas'] = $datas;
-            $details['customer'] =$customer;
-            if(!empty($datas)){
-                // $pdf = PDF::loadView('pdf.receipts', $details);
-                // dd($pdf);
-                // download PDF file with download method
-                // return $pdf->download('Nana-Uwezo-Receit.pdf');
-
-                return view('customers.receipt',compact('datas','customer'));
-            }
-          
-            
-        }else{
-            dd('empty');
+            array_push($sales,$sale);
         }
        
-   
+        $request->session()->forget('cart');  
+     
+            foreach ($sales as $sale) {
+               $product = Product::find($sale['product_id']);
+               $product->entry =  $product->entry-$sale['quantity'];
+               $product->update();
+            }
+            $details['sales'] = $sales;
+            $details['customer'] = $customer;
+            return view('customers.receipt',compact('details'));
+          
+               
+            
+    
     
         
        
