@@ -16,9 +16,9 @@ class SalesController extends Controller
     public function all_sales(){
         //
         if(auth()->user()->role_id == 1){
-          $sales = Sale::orderByDesc('created_at')->paginate(2);
+          $sales = Sale::orderByDesc('created_at')->paginate(20);
         }else{
-          $sales = Sale::where('shop_id',Auth::user()->shop_id)->paginate(5);
+          $sales = Sale::where('shop_id',Auth::user()->shop_id)->paginate(20);
         }
 
         
