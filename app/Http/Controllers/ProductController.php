@@ -30,7 +30,7 @@ class ProductController extends Controller
        }
       
       
-      return view('Products.index',compact('products'));
+      return view('products.index',compact('products'));
     }
     public function added(){
         $products = Product::where('bought' ,'!=', '')
@@ -42,11 +42,11 @@ class ProductController extends Controller
     public function deletedProducts(){
         $products = Product::where('state_id',2)
                             ->paginate(20);
-        return view('Products.deleted',compact('products'));
+        return view('products.deleted',compact('products'));
     }
     public function create(){
         $categories = Category::select(['id','name'])->orderBy('name','asc')->get();
-        return view('Products.create',compact('categories'));
+        return view('products.create',compact('categories'));
     }
     public function store(ProductRequest $request){
        $data = $request->validated();
@@ -56,11 +56,10 @@ class ProductController extends Controller
        
     }
     public function show(Product $product){
-        // dd($product);
-        return view('Products.show',compact('product'));
+        return view('products.show',compact('product'));
     }
     public function edit(Product $product){
-        return view('Products.edit',compact('product'));
+        return view('products.edit',compact('product'));
     }
     public function update(ProductRequest $request,Product $product){
         $data = $request->validated();
