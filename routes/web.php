@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ReceiptController;
-use  App\Http\Controllers\CustomerController;
 use  App\Http\Controllers\CartController;
 use  App\Http\Controllers\SalesController;
-use App\Http\Controllers\GeneratePdf;
+
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShopsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,8 +83,22 @@ Route::controller(CartController::class)->middleware('auth')->group(function () 
 });   
 Route::controller(SalesController::class)->middleware('auth')->group(function(){
   Route::get('/sales', 'all_sales')->name('sales')->middleware('adminSuperAdmin');
-  Route::post('/sales', 'store')->name('sales.store')->middleware('retailer');;
+  Route::post('/sales', 'store')->name('sales.store')->middleware('retailer');
+  Route::get('/sales/show/{sale}', 'show')->name('sale.show')->middleware('adminSuperAdmin');
 });
+
+Route::controller(ShopsController::class)->middleware('auth')->group(function(){
+  Route::get('/shops', 'index')->name('shops.index')->middleware('superadmin');
+  Route::get('shops/create','create')->name('shops.create')->middleware('superadmin');
+  Route::get('shops/{shop}','show')->name('shops.show')->middleware('superadmin');
+  Route::get('shops/edit/{shop}','edit')->name('shops.edit')->middleware('superadmin');
+  Route::put('shops/update-shop/{shop}','update')->name('shops.update')->middleware('superadmin');
+  Route::post('shops','store')->name('shops.store')->middleware('superadmin');
+  Route::get('shops/delete/{shop}','destroy')->name('shops.delete')->middleware('superadmin');
+ 
+ 
+});
+
 
 Auth::routes(['register'=>false]);
 

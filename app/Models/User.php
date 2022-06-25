@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'role_id'
+        'role_id',
+        'shop_id'
     ];
 
     /**
@@ -48,8 +49,11 @@ class User extends Authenticatable
     public function Role(){
         return $this->belongsTo(Role::class);
     }
-    public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
+    public function Shop(){
+        return $this->belongsTo(Shop::class);
     }
+    // public function setPasswordAttribute($value){
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
     
 }

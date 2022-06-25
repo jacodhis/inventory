@@ -22,5 +22,6 @@ class adminTableSeeder extends Seeder
             'role_id'=>1, //super admin
         ]);
        
+       
     }
 }

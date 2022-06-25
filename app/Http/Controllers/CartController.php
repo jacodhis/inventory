@@ -28,7 +28,7 @@ class CartController extends Controller
              'product_id'=>$product->id,
              'product_code' => $product->sku_no,
              'product_name'=>$product->title,
-             'product_price' => $product->s_price,
+             'product_price' => $product->rrp_plus_vat,
              'quantity' => $request->qt,
          ];
         

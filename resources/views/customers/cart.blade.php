@@ -41,7 +41,10 @@
                                                 </thead>
                                             <tbody >
                                                 
-                                               <?php    $total = 0;?>
+                                               <?php    
+                                            //    dd(session('cart'));
+                                                $total = 0;
+                                                ?>
                                                 @if(session('cart'))
                                         
                                                  @foreach(session('cart') as $id => $product)

@@ -38,6 +38,7 @@ class CalcTax
           'p_vat'=>$vat_p_price,
           'pp_plus_vat'=>$pp_plus_vat,
           'pp_less_vat'=>$pp_less_vat,
+          'shop_id'=>auth()->user()->shop_id
         ]);
         return redirect()->back()->with('error','product added successfully');
       }else{
@@ -79,6 +80,7 @@ class CalcTax
   $product->p_vat = $vat_p_price;
   $product->pp_plus_vat = $pp_plus_vat;
   $product->pp_less_vat = $pp_less_vat;
+  $product->shop_id = auth()->user()->shop_id;
   if($product->save()){
     return redirect()->route('all.products')->with('success','product updated successfully');
   }

@@ -12,10 +12,10 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"> All Users: {{count($users)}}</h3>
-                                @if(auth()->user()->role_id == '1')
-                                <h3  style="text-align: right;"><a class="btn btn-primary" href="{{route('user.create')}}">Add User</a></h3>
-                                @endif
+                                <h3 class="card-title"> All Users: {{count($shops)}}</h3>
+                               
+                                <h3  style="text-align: right;"><a class="btn btn-primary" href="{{route('shops.create')}}">Add Shop</a></h3>
+                             
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -23,30 +23,19 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Shop Name</th>
-                                            <th>Shop Location</th>
-                                            <th>Role</th>
+                                            <th>Location</th>
                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @forelse ($users as $user )
+                                      @forelse ($shops as $shop )
                                       <tr>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            <td>{{$user->Shop->name ?? 'Null'}}</td>
-                                            <td>{{$user->Shop->location  ?? "NULL"}}</td>
-                                            <td>{{$user->Role->title ?? "NULL"}}</td>
-                                           
+                                            <td>{{$shop->name}}</td>
+                                            <td>{{$shop->location}}</td>
                                             <td>
-                                                <a href="{{route('user.show',[$user->id])}}" class="btn btn-primary">View</a>
-                                                @if(auth()->user()->Role->title == 'super_admin')
-                                                <a href="{{route('user.delete',[$user->id])}}" class="btn btn-danger">Delete</a>
-                                                <a href="{{route('user.edit',[$user->id])}}" class="btn btn-warning">Edit</a>
-                                                @endif
+                                                <a href="{{route('shops.show',[$shop->id])}}" class="btn btn-primary">View</a>
+                                                <a href="{{route('shops.delete',[$shop->id])}}" class="btn btn-danger">Delete</a>
+                                                <a href="{{route('shops.edit',[$shop->id])}}" class="btn btn-warning">Edit</a>
                                             </td>
                                             
                                           
@@ -61,13 +50,8 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Shop Name</th>
-                                            <th>Shop Location</th>
-                                            <th>Role</th>
+                                            <th>Location</th>
                                            <th>Actions</th>
-                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -87,7 +71,7 @@
 @endsection
 
 @section('title')
-    All Users
+    All Shops
 @endsection
 
 @section('subtitle')

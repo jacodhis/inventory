@@ -26,8 +26,9 @@
     
      <div class="col-10 mx-auto mt-5">
         <div class="row ">
+         
             <div class="col-6">
-                <h4>NANA UWEZO LIMITED</h4>
+                <h4>NANA UWEZO LIMITED </h4>
                 <b>MOTOR WORLD, JOGOO ROAD-NAIROBI</b></br>
                 <small><a href="">admin@nanauwezo@co.ke</a></small></br>
                 <small>PIN NO. P051882706H</small><br>
@@ -65,14 +66,14 @@
                     <?php    $total_vat = 0;?>
                     @foreach($details['sales'] as $data)
                     <tr>
-                    <?php $total = $total+ ($data->quantity * $data->product->s_price) ; ?>
+                    <?php $total = $total+ ($data->quantity * $data->product->rrp_plus_vat) ; ?>
                     <?php $total_vat = $total_vat + $data->product->s_vat ; ?>
                         <td>{{$data->product->title ?? ""}}</td>
                         <td>{{$data->product->sku_no ?? ""}}</td>
                         <td>{{$data->quantity}}</td>
                         <td>{{$data->product->s_price + $data->product->s_vat}}</td>
                         {{-- <td>{{$data->product->s_vat ?? "0"}}</td> --}}
-                        <td>{{$data->quantity * $data->product->s_price}}</td>
+                        <td>{{$data->quantity * $data->product->rrp_plus_vat}}</td>
                     </tr>
                     @endforeach
                 </tbody>

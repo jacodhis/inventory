@@ -4,7 +4,7 @@
 @endsection
 
 @section('subtitle')
-    welcome User
+    welcome {{Auth::user()->Shop->name ?? auth()->user()->name}}
 @endsection
 @section('content')
 

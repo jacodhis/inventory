@@ -44,6 +44,16 @@
                     <option value="{{$role->id}}">{{$role->title}}</option>
                     @endforeach
                 </select>
+              </div>
+
+              <div class="form-group">
+                <label for="shop">Shop</label><small>({{$user->shop_id}})</small>
+                <select name="shop_id" class="form-control">
+                    <option>Shop</option>
+                    @foreach($shops as $shop)
+                    <option value="{{$shop->id}}">{{$shop->name}}</option>
+                    @endforeach
+                </select>
               
               </div>
         

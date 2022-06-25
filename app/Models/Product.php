@@ -20,5 +20,8 @@ class Product extends Model
     public function Property(){
         return $this->belongsTo('App\Models\Property');
     }
+    public function Shop(){
+        return $this->belongsTo('App\Models\Shop');
+    }
 
 }

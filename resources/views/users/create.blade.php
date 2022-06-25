@@ -46,6 +46,16 @@
                 </select>
               
               </div>
+               <div class="form-group">
+                <label for="exampleInputPassword1">Assign Shop</label>
+                <select name="shop_id" class="form-control">
+                    <option @disabled(true)>Select Role</option>
+                    @foreach($shops as $shop)
+                    <option value="{{$shop->id}}">{{$shop->name}}</option>
+                    @endforeach
+                </select>
+              
+              </div>
         
          
           <!-- /.card-body -->

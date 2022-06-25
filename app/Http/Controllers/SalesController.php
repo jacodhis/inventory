@@ -7,14 +7,25 @@ use App\Models\Product;
 use App\Models\Customer;
 
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CustomerRequest;
 
 class SalesController extends Controller
 {
     //
     public function all_sales(){
-        $sales = Sale::orderByDesc('created_at')->paginate(4);
+        //
+        if(auth()->user()->role_id == 1){
+          $sales = Sale::orderByDesc('created_at')->paginate(2);
+        }else{
+          $sales = Sale::where('shop_id',Auth::user()->shop_id)->paginate(5);
+        }
+
+        
         return view('sales.index',compact('sales'));
+    }
+    public function show(Sale $sale){
+      return view('sales.show',compact('sale'));
     }
     public function store(CustomerRequest $request){
        $customer =  Customer::where('phone', $request->phone)->first();
@@ -32,6 +43,7 @@ class SalesController extends Controller
                 'product_id'=> $product['product_id'],
                 'quantity'=>$product['quantity'],
                 'customer_id'=>$customer->id,
+                'shop_id'=>auth()->user()->shop_id
             ]);
             array_push($sales,$sale);
         }
@@ -45,14 +57,7 @@ class SalesController extends Controller
             }
             $details['sales'] = $sales;
             $details['customer'] = $customer;
-            return view('customers.receipt',compact('details'));
-          
-               
-            
-    
-    
-        
-       
+            return view('customers.receipt',compact('details'));  
     }
 }
 

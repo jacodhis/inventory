@@ -11,7 +11,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"> All Products: {{count($sales)}}</h3>
+                                <h3 class="card-title"> All Sales: {{count($sales)}}</h3>
                             </div>
                            
                             <div class="card-body">
@@ -19,14 +19,18 @@
                                     <thead>
                                         <tr>
                                             <th>Code</th>
-                                            <th>description</th>
+                                            <th>Description</th>
                                             <th>Qt sold</th>
-                                            <th>product price</th>
+                                            <th>Product price</th>
+                                            <th> Product total</th>
+                                            <th>Shop Name</th>
+                                            <th>Shop Location</th>
                                             <th>Customer Name</th>
+                                           
                                             <th>Customer Phone</th>
-                                            <th> product total</th>
+                                           
                                             <th>Date</th>
-                                            {{-- <th>Actions</th> --}}
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,17 +45,16 @@
                                            
                                             <td>{{$sale->quantity}}</td>
                                             <td>{{$sale->Product->s_price + $sale->Product->s_vat}}</td>
+                                            <td>{{($sale->Product->s_price + $sale->Product->s_vat) * $sale->quantity}}</td>
+                                            <td>{{$sale->Shop->name ?? 'Null'}}</td>
+                                            <td>{{$sale->Shop->location ?? 'Null'}}</td>
                                             <td>{{$sale->Customer->name}}</td>
                                             <td>{{$sale->Customer->phone ?? ""}}</td>                                                                                            
-                                            <td>{{($sale->Product->s_price + $sale->Product->s_vat) * $sale->quantity}}</td>
-                                           <td>{{$sale->created_at->diffForHumans()}}</td>
+                                           <td>{{$sale->created_at->format('d-m-Y') }}</td>
                                         
                                             <td>
-                                                <a href="{{route('product.show',[$sale->id])}}" class="btn btn-primary">View</a>
+                                                <a href="{{route('sale.show',[$sale->id])}}" class="btn btn-primary">View</a>
                                              
-                                                <a href="{{route('product.delete',[$sale->id])}}" class="btn btn-danger">Delete</a>
-                                            
-
                                             </td>
                                             
                                           
@@ -66,14 +69,19 @@
                                     <tfoot>
                                         <tr>
                                             <th>Code</th>
-                                            <th>description</th>
+                                            <th>Description</th>
                                             <th>Qt sold</th>
-                                            <th>product price</th>
+                                            <th>Product price</th>
+                                            <th> {{$total}}</th>
+                                            <th>Shop Name</th>
+                                            <th>Shop Location</th>
                                             <th>Customer Name</th>
+                                            
                                             <th>Customer Phone</th>
                                             
-                                            <th> {{$total}}</th>
-                                            <th>CF</th>
+                                           
+                                            <th>Date</th>
+                                            <th>Actions</th>
                                        
                                         </tr>
                                     </tfoot>

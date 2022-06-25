@@ -9,15 +9,27 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\CalcTax;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     //
     public function index(){
         //1 means not active
+       if(auth()->user()->role_id ==1){
         $products = Product::where('state_id',1)
-                            ->orderBy('created_at','desc')->paginate(100);
-        // return $products;
+                             ->orderBy('created_at','desc')->paginate(100);
+       }else{
+        $products = Product::join('shops','shops.id','products.shop_id')
+                            ->where('shops.id',Auth::user()->shop_id)
+                            ->where('products.state_id',1)
+                            ->orderBy('products.created_at','desc')
+                            ->select('products.*')
+                            ->paginate(30);
+
+       }
+      
+      
       return view('Products.index',compact('products'));
     }
     public function added(){
@@ -44,6 +56,7 @@ class ProductController extends Controller
        
     }
     public function show(Product $product){
+        // dd($product);
         return view('Products.show',compact('product'));
     }
     public function edit(Product $product){

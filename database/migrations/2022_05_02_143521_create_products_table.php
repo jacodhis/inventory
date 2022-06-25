@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('pp_plus_vat')->nullable();
             $table->string('pp_less_vat')->nullable();
 
+         
 
 
             $table->unsignedBigInteger('property_id')->nullable();

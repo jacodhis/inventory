@@ -31,32 +31,7 @@
         <th>RRP - VAT</th>
        </thead>
     </table>
-   
-        {{-- <div class="col-md-4">
-            <div class="info-box mb-3 bg-info">
-                <span class="info-box-icon"><i class="fas fa-tag"></i></span>
-        
-                <div class="info-box-content">
-                <span class="info-box-text">PP - VAT</span>
-                <span class="info-box-number">{{$product->pp_minus_vat ?? ""}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <div class="col-md-4">
-            <div class="info-box mb-3 bg-danger">
-                <span class="info-box-icon"><i class="fas fa-tag"></i></span>
-        
-                <div class="info-box-content">
-                <span class="info-box-text">PP + VAT</span>
-                <span class="info-box-number">{{$product->pp_plus_vat ?? ""}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div> --}}
-     
+ 
   
 
 </div>

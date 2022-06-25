@@ -16,10 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(CategoryTableSeeder::class);
         // $this->call(productTableSeeder::class);
-        $this->call(stateTableSeeder::class);
+        // $this->call(stateTableSeeder::class);
         // $this->call(propertyTableSeeder::class);
-        $this->call(rolesTableSeeder::class);
-        $this->call(adminTableSeeder::class);
+        // $this->call(rolesTableSeeder::class);
+        // $this->call(adminTableSeeder::class);
         // \App\Models\User::factory(10)->create();
+        $this->call([
+            stateTableSeeder::class,
+            rolesTableSeeder::class,
+            adminTableSeeder::class,
+            shopSeeder::class,
+
+        ]);
     }
 }
